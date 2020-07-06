@@ -1,0 +1,1011 @@
+/* Version: 1.0 */
+/* Author: Gustavo Teixeira - Web Developer */
+/* Author URI: https://github.com/taylosstls */
+/* Description: Desenvolvimento de uma landing page com explicando os produtos da Idwall utilizando o conteúdo enviado, levando em consideração as cores da identidade visual, hierarquia das informações, imagens de ilustração das soluções, responsividade da página e bibliotecas Javascripts. */
+
+// Fonts Mixin
+// Example: fontSizeLine(18, 30)
+@mixin fontSizeLine($fontSizeValue: 13, $lineHeightValue: 21)
+  @include fontSize($fontSizeValue)
+  @include lineHeight($lineHeightValue)
+
+@mixin fontSize($fontSizeValue: 13)
+  font-size: $fontSizeValue + px
+  font-size: (0.0625 * $fontSizeValue) + rem
+
+@mixin lineHeight($lineHeightValue: 21)
+  line-height: $lineHeightValue + px
+  line-height: (0.0625 * $lineHeightValue) + rem
+
+// Text-shadow Mixin
+// Example: @include box-shadow(0, 2px, 1px, rgba(0, 0, 0, 0.35))
+@mixin textShadow($horizOffset, $vertOffset, $blur, $color)
+  -webkit-text-shadow: $horizOffset $vertOffset $blur $color
+  -moz-text-shadow: $horizOffset $vertOffset $blur $color
+  -ms-text-shadow: $horizOffset $vertOffset $blur $color
+  -o-text-shadow: $horizOffset $vertOffset $blur $color
+  text-shadow: $horizOffset $vertOffset $blur $color
+
+// Boxshadow Mixin
+// Example: @include box-shadow(0, 2px, 20px, 0px, rgba(0, 0, 0, 0.35))
+@mixin boxShadow($left, $top, $blur, $spread, $color, $inset:"")
+  -webkit-box-shadow: $left $top $blur $spread $color #{$inset}
+  -moz-box-shadow: $left $top $blur $spread $color #{$inset}
+  box-shadow: $left $top $blur $spread $color #{$inset}
+
+// Animation Mixin
+// Example: @include transition(opacity .25s ease-in-out)
+@mixin transition($transition...)
+  -moz-transition: $transition
+  -o-transition: $transition
+  -webkit-transition: $transition
+  transition: $transition
+
+// Mixin Animation
+// Example: @include transform(rotate(45deg))
+@mixin transform($transform...)
+  -ms-transform: $transform
+  -webkit-transform: $transform
+  transform: $transform
+
+// Mixin Animation Origin Point
+// Example: @include transformOrigin(left center)
+@mixin transformOrigin($transform...)
+  -webkit-transform-origin: $transform
+  -moz-transform-origin: $transform
+  -o-transform-origin: $transform
+  transform-origin: $transform
+
+// Radius
+// Example: @mixin radius(5px)
+@mixin radiusBorder($radius)
+  -webkit-border-radius: $radius
+  -moz-border-radius: $radius
+  border-radius: $radius
+
+// Fonts
+$fontFamily: 'Margem'
+$fontAwesome: Font Awesome\ 5 Free
+
+// Colors
+$whiteColor: #FFF
+$grayColor: #E5E5E5
+$textColor: #666
+$blackColor: #000
+$menuColor: #23292e
+$purpleColor: #50F
+$blueColor: #11EAB5
+
+// Resets
+input::-webkit-outer-spin-button, input::-webkit-inner-spin-button
+  display: none
+  -webkit-appearance: none
+
+input[type=number]::-webkit-outer-spin-button,
+input[type=number]::-webkit-inner-spin-button
+  -webkit-appearance: none
+  margin: 0
+
+input[type=number]
+  -moz-appearance: textfield
+
+*
+  list-style: none
+  text-decoration: none
+  -webkit-font-smoothing: antialiased
+  -moz-osx-font-smoothing: grayscale
+  -webkit-box-sizing: border-box
+  box-sizing: border-box
+  outline: 0
+
+textarea:focus,
+input[type="text"]:focus,
+input[type="password"]:focus,
+input[type="datetime"]:focus,
+input[type="datetime-local"]:focus,
+input[type="date"]:focus,
+input[type="month"]:focus,
+input[type="time"]:focus,
+input[type="week"]:focus,
+input[type="number"]:focus,
+input[type="email"]:focus,
+input[type="url"]:focus,
+input[type="search"]:focus,
+input[type="tel"]:focus,
+input[type="color"]:focus,
+.uneditable-input:focus
+  border-color: rgba(85, 0, 255, 0.25)
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset, 0 0 8px rgba(85, 0, 255, 0.25)
+  outline: 0 none
+
+body
+  text-rendering: optimizeLegibility
+  font-variant-ligatures: none
+  font-family: $fontFamily
+  font-weight: 300
+  letter-spacing: 0.25px
+  color: $blackColor
+  word-wrap: break-word
+  @include fontSizeLine(13, 21)
+
+ul
+  list-style: none
+  -webkit-margin-before: 0
+  -webkit-margin-after: 0
+  -webkit-margin-start: 0
+  -webkit-margin-end: 0
+  -webkit-padding-start: 0
+
+figure
+  margin: 0
+
+img
+  image-rendering: auto
+  image-rendering: crisp-edges
+  image-rendering: -webkit-optimize-contrastW
+  max-width: 100%
+  height: auto
+
+canvas
+  display: block
+  vertical-align: bottom
+
+.btn,
+.btn:focus
+  box-shadow: none
+  outline: none !important
+
+button:focus,
+button:active
+  box-shadow: none
+  outline: 0
+
+body
+
+  // Header
+  header
+    min-height: 100vh
+    overflow: hidden
+    display: flex
+    flex-direction: column
+
+    // Bar Navigation
+    .navbar
+      padding-top: 15px
+      padding-bottom: 15px
+      min-height: 80px
+      background-color: $whiteColor
+      @include boxShadow(0, 0, 20px, -4px, rgba(0, 0, 0, 0.1))
+      @include transition(background 0.3s, border 0.3s, border-radius 0.3s, box-shadow 0.3s, margin-top 0.3s)
+      // Logo Brand
+      .navbar-brand
+        padding: 0
+        margin: 0
+        img
+          min-height: 50px
+
+      // Menu
+
+      // Menu Responsive Animation
+      .navbar-toggler
+        padding: .75rem
+        border: 0 none
+        outline: none
+
+      .navbar-collapse
+        .navbar-nav
+          margin-top: 15px
+          margin-bottom: 15px
+          .nav-item
+            display: flex
+            align-items: center
+            position: relative
+            .nav-link
+              color: $menuColor
+              font-weight: 300
+              padding: .5rem 1rem
+              @include fontSizeLine(14, 21)
+              @include transition(color .3s)
+              &.active
+                color: $purpleColor
+                &:hover
+                  color: $purpleColor
+              &:hover
+                color: $blueColor
+
+            // Call-to-action
+            .btn
+              &.btn-contact
+                outline: none
+                margin-left: 2rem
+                padding: 10px 15px
+                font-weight: 500
+                background-color: $purpleColor
+                color: $whiteColor
+                border: 1px solid $purpleColor
+                @include transition(all .3s)
+                @include fontSizeLine(14, 21)
+                @include radiusBorder(6px)
+                &::after
+                  content: ''
+                  left: .5rem
+                  top: 0
+                  bottom: 0
+                  width: 1px
+                  background: $grayColor
+                  position: absolute
+                &:hover
+                  background-color: $whiteColor
+                  color: $purpleColor
+                &.active
+                  background-color: $whiteColor
+                  color: $purpleColor
+
+      // Menu Button Icon
+      .menu-icon
+        width: 30px
+        height: 23px
+        position: relative
+        margin: 0px
+        cursor: pointer
+        @include transform(rotate(0deg))
+        @include transition(.5s ease-in-out)
+      .menu-icon span
+        background-color: $purpleColor
+        display: block
+        position: absolute
+        height: 3px
+        width: 100%
+        opacity: 1
+        left: 0
+        @include radiusBorder(6px)
+        @include transform(rotate(0deg))
+        @include transition(.25s ease-in-out)
+      .menu-icon span:nth-child(1)
+        top: 0px
+        @include transformOrigin(left center)
+      .menu-icon span:nth-child(2)
+        top: 10px
+        @include transformOrigin(left center)
+      .menu-icon span:nth-child(3)
+        top: 20px
+        @include transformOrigin(left center)
+      .menu-icon.open span:nth-child(1)
+        top: 0px
+        left: 4px
+        @include transform(rotate(45deg))
+      .menu-icon.open span:nth-child(2)
+        width: 0%
+        opacity: 0
+      .menu-icon.open span:nth-child(3)
+        top: 21px
+        left: 4px
+        @include transform(rotate(-45deg))
+
+    // Slide Config
+    .slide-animation
+      padding-top: 90px
+      flex: 1
+      min-height: 600px
+      display: flex
+      align-items: center
+      background-color: #fafafa
+      background-image: url(../images/background/background-element.svg), url(../images/background/background-element-2.svg)
+      background-repeat: no-repeat
+      background-position: 110% 15%, -1% 80%
+      background-size: 280px, 160px
+      background-attachment: fixed
+      margin-bottom: 39px
+      .text-items
+        padding-top: 50px
+        padding-bottom: 50px
+        h3
+          font-weight: 700
+          margin-bottom: 50px
+          @include fontSizeLine(60, 65)
+          span.underline
+            position: relative
+            &::after
+              content: ''
+              bottom: 0
+              left: 0
+              height: 3px
+              width: 0%
+              display: block
+              position: absolute
+              background-color: $purpleColor
+              animation: AnimationSublime 2s ease-in 1s forwards
+          span.underline.delay1
+            &::after
+              animation-delay: 2.5s
+          span.box-slide
+            position: relative
+            color: $blueColor
+            padding: 5px 20px
+            font-weight: 600
+            z-index: 2
+            &::after
+              content: ''
+              left: -3px
+              top: -3px
+              right: -3px
+              bottom: 0
+              position: absolute
+              background-color: $blackColor
+              z-index: -1
+        p
+          margin-bottom: 30px
+          @include fontSizeLine(24, 32)
+          strong
+            color: $purpleColor
+            font-weight: 700
+
+        // Button Call to Action
+        .btn
+          &.btn-solutions
+            margin-top: 30px
+            padding: 20px 30px
+            background-color: $purpleColor
+            border: 2px solid $purpleColor
+            color: $whiteColor
+            outline: none
+            @include fontSizeLine(18, 24)
+            @include radiusBorder(34px)
+            @include transition(all .3s)
+            &:hover
+              color: $purpleColor
+              background-color: $whiteColor
+
+      // Slide Images
+      .animation-items
+        position: relative
+        img
+          position: absolute
+        .password-item
+          width: 100px
+          z-index: 6
+          left: 30%
+          bottom: 18%
+          animation: AnimationPassword 3s ease-in-out alternate infinite none running
+        .security-item
+          width: 190px
+          z-index: 4
+          left: 28%
+          bottom: 38%
+          animation: AnimationSecurity 3s ease-in-out alternate infinite none running
+        .photo-item
+          width: 180px
+          z-index: 5
+          right: 3%
+          bottom: 12%
+          animation: AnimationPhoto 2.5s ease-in alternate infinite none running
+        .key-item
+          width: 200px
+          z-index: 3
+          left: 45%
+          bottom: 2%
+          animation: AnimationKey 3s ease alternate infinite none running
+        .mobile-item
+          width: 250px
+          left: 50%
+          bottom: 20%
+          z-index: 2
+        .background-item
+          width: 700px
+          z-index: 1
+          right: -5%
+          bottom: -5%
+          animation: AnimationBackground 3s ease-in-out alternate infinite none running
+
+    // Arrow Dropdown
+    .next-drop
+      position: relative
+      margin: -78px auto 0 auto
+      img
+        width: 150px
+
+  // Section Solutions
+  .complete-solution-enterprises
+    background: url(../images/background/trust-through-technology.jpg) no-repeat center
+    background-attachment: fixed
+    background-size: cover
+    padding: 80px 0
+    h2
+      color: $whiteColor
+      font-weight: 900
+      margin-bottom: 20px
+      @include fontSizeLine(42, 48)
+    h3
+      color: $whiteColor
+      font-weight: 600
+      text-transform: uppercase
+      margin-bottom: 30px
+      @include fontSizeLine(18, 24)
+    p
+      color: $whiteColor
+      @include fontSizeLine(16, 24)
+
+    // Carousel Solutions
+    .solutions-carousel.owl-theme
+      margin-top: 50px
+      .owl-dots
+        margin-top: 30px
+        button.owl-dot
+          outline: none
+          span
+            width: 8px
+            height: 6px
+            @include transition(all .3s)
+            &:hover
+              background-color: $blueColor
+        button.owl-dot.active
+          span
+            background-color: $blueColor
+            width: 16px
+            height: 6px
+      .owl-item
+        .it-solution
+          padding: 30px 15px
+          background-color: $whiteColor
+          @include radiusBorder(5px)
+          @include transition(all 0.5s ease-in-out)
+          figure
+            margin-bottom: 30px
+            img
+              margin: 0 auto
+              display: block
+              max-width: 100px
+              @include transition(filter 0.5s ease-in-out)
+          p
+            color: $purpleColor
+            text-align: center
+            text-transform: uppercase
+            font-weight: 600
+            margin: 0
+            @include fontSizeLine(16, 22)
+            @include transition(all 0.5s ease-in-out)
+          &:hover
+            background-color: $purpleColor
+            figure
+              img
+                filter: sepia(1) saturate(0) hue-rotate(0deg) brightness(5)
+            p
+              color: $whiteColor
+
+  // Section How it Works
+  .how-it-works
+    padding: 80px 0
+    background: url(../images/background/idwall-pattern.svg) repeat center
+    background-size: 60px
+    h2
+      color: $purpleColor
+      font-weight: 900
+      @include fontSizeLine(42, 48)
+    p
+      color: $blackColor
+      @include fontSizeLine(16, 24)
+
+    // Tab Navigation
+    .works-navigation
+      margin-top: 30px
+      margin-bottom: 50px
+      .nav-tabs
+        border-bottom: 0 none
+        .nav-link
+          font-weight: 700
+          margin: 0 15px
+          padding: 10px 30px
+          color: $purpleColor
+          border: 2px solid $purpleColor
+          background-color: $whiteColor
+          @include fontSizeLine(16, 24)
+          @include radiusBorder(25px)
+          @include transition(all .3s)
+          &:hover
+            border-color: $blueColor
+            background-color: $blueColor
+        .nav-link.active
+          color: $blueColor
+          background-color: $purpleColor
+          border-color: $purpleColor
+
+    // Tab Content
+    .works-content
+      padding-top: 50px
+      border-top: 2px solid $purpleColor
+      .tab-pane
+        figure
+          max-width: 150px
+          padding: 30px
+          margin: 0 auto 30px
+          background-color: $purpleColor
+          @include radiusBorder(50%)
+          img
+            filter: sepia(1) saturate(0) hue-rotate(0deg) brightness(5)
+        h4
+          background-color: $blackColor
+          color: $whiteColor
+          display: inline-block
+          padding: 8px 10px 0
+        p
+          margin-bottom: 30px
+          @include fontSizeLine(18, 26)
+        ul
+          margin: 0
+          border-left: 2px solid $purpleColor
+          li
+            padding: 20px 30px 20px 10px
+            font-weight: 700
+            @include fontSizeLine(16, 24)
+            & + li
+              padding: 10px 30px 10px 10px
+
+  // Section Contact
+  .contact
+    padding: 80px 0px 0
+    background: url(../images/background/background-contact.svg) no-repeat center center
+    background-size: cover
+    background-attachment: fixed
+    .text-contact
+      text-align: center
+      margin-bottom: 30px
+      h2
+        color: $whiteColor
+        font-weight: 900
+        margin-bottom: 20px
+        @include fontSizeLine(42, 48)
+      p
+        color: $whiteColor
+        font-weight: 500
+        margin-bottom: 0
+        @include fontSizeLine(16, 24)
+      ul
+        li
+          color: $whiteColor
+          margin-bottom: 15px
+          @include fontSizeLine(16, 22)
+          &::before
+            content: ''
+            display: inline-block
+            width: 7px
+            height: 7px
+            background-color: $blueColor
+            margin-right: 20px
+            @include radiusBorder(50%)
+    .form-contact
+      background-color: $whiteColor
+      padding: 45px 45px 35px
+      margin-bottom: -60px
+      @include radiusBorder(5px)
+      @include boxShadow(0, 15px, 37px, 0, rgba(0, 0, 0, 0.2))
+      h3
+        font-weight: 600
+      p
+        color: $textColor
+        @include fontSizeLine(14, 21)
+      .form-box
+        label
+          margin-bottom: .25rem
+        input
+          height: 40px
+          border-color: $purpleColor
+          @include fontSizeLine(13, 21)
+        .btn-submit
+          border: 1px solid $purpleColor
+          background: $purpleColor
+          color: $whiteColor
+          padding: 10px 15px
+          font-weight: 500
+          @include transition(all 0.3s)
+          &:hover
+            background: $whiteColor
+            color: $purpleColor
+        .form-control
+          @include radiusBorder(5px)
+        .form-check
+          padding: 0
+          margin-bottom: 1.5rem
+        .form-check-label
+          color: $menuColor
+          cursor: pointer
+          margin: 5px 0 0 35px
+          a
+            color: $purpleColor
+            text-decoration: underline
+        .checkbox label::before
+          content: ''
+          display: inline-block
+          position: absolute
+          width: 25px
+          height: 25px
+          left: 0
+          top: 3px
+          border: 1px solid $purpleColor
+          background-color: #fff
+          @include radiusBorder(5px)
+          @include transition(border 0.15s ease-in-out, color 0.15s ease-in-out)
+        .checkbox label::after
+          display: inline-block
+          position: absolute
+          width: 25px
+          height: 25px
+          left: 5px
+          top: 8px
+          @include radiusBorder(3px)
+        .checkbox input[type="checkbox"]
+          cursor: pointer
+          opacity: 0
+          z-index: 1
+          width: 25px
+          height: 25px
+          margin: 0
+        .checkbox input[type="checkbox"]:checked + label::after
+          content: ''
+          background: url(../images/icons/check-solid.svg) no-repeat center
+          background-size: 15px
+          width: 15px
+          height: 15px
+          display: block
+
+  // Section Partnership
+  .partnership
+    padding: 120px 0 40px
+    h2
+      display: block
+      text-align: center
+      color: $menuColor
+      font-weight: 300
+      margin-bottom: 30px
+      @include fontSizeLine(18, 30)
+    .partnership-carousel.owl-theme
+      .owl-dots
+        margin-top: 30px
+        button.owl-dot
+          outline: none
+          span
+            width: 8px
+            height: 6px
+            @include transition(all .3s)
+            &:hover
+              background-color: $purpleColor
+        button.owl-dot.active
+          span
+            background-color: $purpleColor
+            width: 16px
+            height: 6px
+      .it-partnership
+        height: 60px
+        display: flex
+        align-items: center
+        justify-content: center
+        img
+          max-width: 115px
+          max-height: 52px
+          min-height: 50px
+
+  // Section Newsletter
+  .newsletter
+    overflow: hidden
+    background: url(../images/background/newsletter-airplane.svg) no-repeat #50f top -15px left 6%
+    padding: 20px 0
+    form
+      display: flex
+      flex-direction: row
+      align-items: center
+      h6
+        color: $whiteColor
+        margin: 0
+        color: $whiteColor
+        font-weight: 400
+        @include fontSizeLine(18, 24)
+      .form-group
+        flex: 1
+        margin: 0 20px
+        label, small
+          margin-bottom: 0
+          color: $whiteColor
+        input
+          height: 45px
+          background-color: transparent
+          border: 1px solid $whiteColor
+          @include fontSizeLine(13, 21)
+          &::placeholder
+            color: $whiteColor
+      .btn-subscribe
+        height: 45px
+        background-color: $whiteColor
+        border: 1px solid $purpleColor
+        color: $purpleColor
+        padding: 0 20px
+        margin-bottom: 2px
+        font-weight: 500
+        @include transition(all 0.3s)
+        &:hover
+          background: $whiteColor
+          color: $purpleColor
+    .social-medias
+      display: flex
+      flex-direction: row
+      align-items: center
+      justify-content: flex-end
+      h6
+        color: $whiteColor
+        display: block
+        margin-right: 30px
+        margin-bottom: 0
+        span
+          display: block
+      a
+        margin: 0 15px
+        &:first-child
+          margin-left: 0
+        &:last-child
+          margin-right: 0
+        img
+          width: 21px
+          filter: invert(1)
+
+  // Section Footer
+  .footer
+    padding: 20px 0
+    background: $whiteColor
+    .logo-footer
+      display: flex
+      flex-direction: row
+      align-items: center
+      figure
+        margin-right: 30px
+      span
+        color: $menuColor
+        @include fontSizeLine(14, 21)
+    .copyright-footer
+      text-align: right
+      p
+        color: $menuColor
+        margin: 0
+        @include fontSizeLine(14, 21)
+
+// Keyframes Text Animation
+@keyframes AnimationSublime
+  0%
+    width: 0%
+
+  100%
+    width: 100%
+
+// Keyframes Slide Animation
+@keyframes AnimationSecurity
+  0%
+    bottom: 38%
+
+  100%
+    bottom: 40%
+
+@keyframes AnimationPassword
+  0%
+    bottom: 18%
+
+  100%
+    bottom: 19%
+
+@keyframes AnimationPhoto
+  0%
+    bottom: 12%
+
+  100%
+    bottom: 14%
+
+@keyframes AnimationKey
+  0%
+    left: 45%
+
+  100%
+    left: 43%
+
+@keyframes AnimationBackground
+  0%
+    @include transform(scale(1))
+
+  100%
+      @include transform(scale(1.03))
+
+// Responsive Itens
+@media only screen and (max-width: 1440px)
+  body
+    .newsletter
+      background-position: top -15px left -12%
+    header
+      .slide-animation
+        .text-items
+          padding-top: 60px
+          padding-bottom: 60px
+          h3
+            margin-bottom: 25px
+            @include fontSizeLine(45, 55)
+            span.box-slide
+              padding: 5px 15px
+              &::after
+                left: 0px
+                top: -2px
+                right: 2px
+          p
+            margin-bottom: 20px
+            @include fontSizeLine(18, 24)
+        .animation-items
+          .password-item
+            width: 90px
+            left: 30%
+            bottom: 18%
+          .security-item
+            width: 150px
+            left: 28%
+            bottom: 38%
+          .photo-item
+            width: 150px
+            right: 0%
+            bottom: 12%
+          .key-item
+            width: 200px
+            left: 45%
+            bottom: 4%
+          .mobile-item
+            width: 220px
+          .background-item
+            width: 700px
+            z-index: 1
+            right: -10%
+            bottom: -1%
+
+@media only screen and (max-width: 1200px)
+  body
+    header
+      .slide-animation
+        .text-items
+          padding-right: 0
+          padding-left: 0
+          h3
+    .newsletter
+      background-image: none
+
+    .footer
+      .logo-footer
+        justify-content: center
+      .copyright-footer
+        margin-top: 20px
+        padding-top: 20px
+        border-top: 1px solid $grayColor
+        text-align: center
+
+@media only screen and (max-width: 991px)
+  body
+    header
+      .navbar
+        .navbar-collapse
+          .navbar-nav
+            .nav-item
+              .btn
+                &.btn-contact
+                  margin-left: 1rem
+                &::after
+                  display: none
+      .slide-animation
+        background-position: 120% 15%, -5% 80%
+        background-size: 280px, 160px
+
+    .complete-solution-enterprises
+      background-position: center left
+
+    .how-it-works
+      .works-navigation
+        .nav-tabs
+          .nav-link
+            padding: 10px 20px
+            display: flex
+            justify-content: center
+            flex-direction: row
+            align-items: center
+            text-align: center
+            max-width: 33%
+            @include fontSizeLine(14, 21)
+            @include radiusBorder(36px)
+            &:first-child
+              margin-left: 0
+            &:last-child
+              margin-right: 0
+
+      .works-content
+        .tab-pane
+          text-align: center
+          ul
+            li
+              text-align: left
+
+    .newsletter
+      padding: 30px 0
+      form
+        flex-direction: column
+        width: 100%
+        h6
+          width: 100%
+          margin-bottom: 15px
+        .form-group
+          width: 100%
+        .btn-subscribe
+          margin-right: auto
+          margin-top: 15px
+      .social-medias
+        margin-top: 30px
+        justify-content: center
+        h6
+          span
+            display: inline
+
+@media only screen and (max-width: 767px)
+  body
+    header
+      .slide-animation
+        background-position: 120% 15%, -5% 100%
+        background-size: 230px, 110px
+    .how-it-works
+      .works-navigation
+        .nav-tabs
+          .nav-link
+            width: 100%
+            text-align: center
+            max-width: inherit
+            min-width: 320px
+            margin: 10px 0
+      .works-content
+        .tab-pane
+          ul
+            li
+              & + li
+                padding-right: 0
+
+@media only screen and (max-width: 600px)
+  body
+    header
+      .navbar
+        width: 100%
+        max-width: 600px
+      .slide-animation
+        .text-items
+          padding-top: 50px
+          padding-bottom: 60px
+          h3
+            @include fontSizeLine(36, 42)
+            span
+              &.underline
+                display: inline-block
+          .btn
+            &.btn-solutions
+              margin-bottom: 30px
+    .complete-solution-enterprises
+      h2
+        @include fontSizeLine(36, 42)
+    .how-it-works
+      h2
+        @include fontSizeLine(36, 42)
+    .contact
+      .text-contact
+        h2
+          @include fontSizeLine(36, 42)
+
+@media only screen and (max-width: 467px)
+  body
+    header
+      .slide-animation
+        background-position: 120% 15%, -5% 100%
+        background-size: 150px, 80px
+
+@media only screen and (max-width: 380px)
+  body
+    header
+      .slide-animation
+        background-position: 120% 15%, -3% 100%
+        background-size: 120px, 60px
+        .text-items
+          h3
+            span
+              &.underline
+                display: inline
